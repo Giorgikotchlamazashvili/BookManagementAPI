@@ -1,30 +1,39 @@
-# Book Management API
+# Book Management API - Structure Overview  
 
-This is a RESTful API built with ASP.NET Core Web API designed for managing books. It supports CRUD operations, including adding single or multiple books, updating, soft deleting, and retrieving book details and lists with pagination. The API uses SQL Server for data storage with Entity Framework Core for data access, JWT-based authentication for security, and Swagger for API documentation.
+## 📌 Project Structure  
 
-## Features
+The API follows a **three-layered architecture**:  
 
-- **CRUD Operations:**  
-  - Add single and bulk books.
-  - Update book details.
-  - Soft delete single and multiple books.
-  - Retrieve a list of books (titles only) sorted by a dynamically calculated popularity score.
-  - Retrieve complete details of a specific book (including view count and dynamic popularity score).
+## 📂 Folder Breakdown  
 
-- **Security:**  
-  - JWT-based authentication to secure all endpoints.
+### 1️⃣ **Controllers/** (Handles API Requests)  
+Contains controllers that define API endpoints. Example:  
+- **`BooksController.cs`** → Manages book operations (GET, POST, PUT, DELETE).  
+- **`AuthController.cs`** → Handles authentication and JWT token generation.  
 
-- **Documentation:**  
-  - Swagger UI for interactive API documentation.
+### 2️⃣ **Models/** (Defines Data Structures)  
+Contains C# classes that represent the database tables. Example:  
+- **`Book.cs`** → Defines properties like `Title`, `AuthorName`, `PublicationYear`, etc.  
 
-- **Database:**  
-  - SQL Server is used as the back-end database with EF Core for data access.
+### 3️⃣ **Data/** (Database Configuration)  
+Manages the connection to SQL Server using **Entity Framework Core (EF Core)**.  
+- **`BookDbContext.cs`** → Configures the `Books` table.  
+- **Migrations/** → Stores EF Core migrations to keep track of schema changes.  
 
-## Technologies Used
+### 4️⃣ **Repositories/** (Data Access Layer)  
+Handles database queries and business logic using **Dependency Injection**. Example:  
+- **`IBookRepository.cs`** → Defines interfaces for data access methods.  
+- **`BookRepository.cs`** → Implements database logic (CRUD operations).  
 
-- ASP.NET Core Web API (.NET 8)
-- C#
-- SQL Server
-- Entity Framework Core
-- JWT Authentication
-- Swagger
+### 5️⃣ **Configuration Files**  
+- **`appsettings.json`** → Stores database connection strings and JWT settings.  
+- **`Program.cs`** → Configures middleware, authentication, and services.  
+
+## 🔥 API Functionality  
+
+The API supports the following:  
+✅ JWT Authentication (Login & Protected Endpoints)  
+✅ CRUD Operations for Books (Create, Read, Update, Soft Delete)  
+✅ Sorting & Pagination (Retrieve Books by Popularity)  
+✅ Soft Deletion Instead of Permanent Removal  
+✅ Swagger API Documentation  
